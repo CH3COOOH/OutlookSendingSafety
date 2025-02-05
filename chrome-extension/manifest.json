@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Outlook Send Safety",
+  "version": "1.0",
+  "description": "Show confirmation alert before sending a mail.",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://outlook.office.com/*",
+    "*://outlook.live.com/*"
+  ],
+  "background": {
+	"service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://outlook.live.com/*", "*://outlook.office.com/*"],
+      "js": ["content.js"],
+	  "run_at": "document_start"
+    }
+  ]
+}
