@@ -5,10 +5,15 @@ document.addEventListener('click', function(event) {
     && ((event.target.tagName === 'BUTTON' && event.target.className.includes('fui-SplitButton__primaryActionButton'))
 	|| (event.target.tagName === 'I' && event.target.className.includes('fui-Icon-font rb9zq'))
 	)) {
-    if (!confirm("Are you sure?\nAre you sure?\nAre you sure?")) {
+    if (!confirm("Are you sure?\nAre you sure??\nAre you sure???")) {
       event.stopImmediatePropagation();
       event.preventDefault();
-    }
+    } else {
+		if (!confirm("This is the last confirmation.\nARE? YOU? SURE??")) {
+			event.stopImmediatePropagation();
+			event.preventDefault();
+		}
+	}
   }
 }, true);
 
