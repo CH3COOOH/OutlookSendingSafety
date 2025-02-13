@@ -1,9 +1,6 @@
 const CLASS_BTN_EMOJI = 'fui-Button r1alrhcs oDRY1 ___1svpkjh';
 const CLASS_BTN_SEND = 'fui-SplitButton__primaryActionButton';
 const CLASS_BTN_SEND_ICON = 'fui-Icon-font rb9zq';
-const ID_READING_PANEL = 'ReadingPaneContainerId';
-
-var observer = null;
 
 function rm_element() {
 var selector = document.querySelectorAll(`[class*="${CLASS_BTN_EMOJI}"]`);
@@ -42,13 +39,8 @@ document.addEventListener('keydown', function(event) {
 	}
 }, true);
 
-setTimeout(function() {
-	var targetNode = document.getElementById(ID_READING_PANEL);
-	if (targetNode) {
-		console.log('Emoji killer launched.');
-		observer = new MutationObserver(function(mutationsList, observer) {
-			rm_element();
-		});
-		observer.observe(targetNode, { childList: true, subtree: true, attributes: true });
-	}
-}, 3000);
+if(rm_element() === -1) {
+	setTimeout(function() {
+		console.log(rm_element());
+	}, 500);
+}
