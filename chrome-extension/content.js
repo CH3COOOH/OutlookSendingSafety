@@ -4,6 +4,8 @@ const CLASS_BTN_SEND_ICON = 'fui-Icon-font rb9zq';
 const ID_READING_PANEL = 'ReadingPaneContainerId';
 
 var observer = null;
+var readingpane = null;
+var isReadingpane = false;
 
 function rm_element() {
 var selector = document.querySelectorAll(`[class*="${CLASS_BTN_EMOJI}"]`);
@@ -43,12 +45,27 @@ document.addEventListener('keydown', function(event) {
 }, true);
 
 setTimeout(function() {
-	var targetNode = document.getElementById(ID_READING_PANEL);
-	if (targetNode) {
+	readingpane = document.getElementById(ID_READING_PANEL);
+	if (readingpane) {
 		console.log('Emoji killer launched.');
 		observer = new MutationObserver(function(mutationsList, observer) {
 			rm_element();
 		});
-		observer.observe(targetNode, { childList: true, subtree: true, attributes: true });
+		observer.observe(readingpane, { childList: true, subtree: true, attributes: true });
 	}
 }, 3000);
+
+setInterval(() => {
+	if (!document.body.contains(readingpane)) {
+		console.log('Mainframe disappeared? Try to pull up the observer...');
+		isReadingpane = false;
+		readingpane = document.getElementById(ID_READING_PANEL);
+		observer.observe(readingpane, { childList: true, subtree: true, attributes: true });
+		rm_element();
+	} else {
+		if (isReadingpane === false) {
+			console.log('Mainframe online.');
+			isReadingpane = true;
+		}
+	}
+}, 5000);
